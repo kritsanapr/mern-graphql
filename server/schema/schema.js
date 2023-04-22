@@ -12,9 +12,9 @@ const ClientType = new GraphQLObjectType({
   name: "Client",
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLID },
-    email: { type: GraphQLID },
-    phone: { type: GraphQLID },
+    name: { type: GraphQLString },
+    email: { type: GraphQLString },
+    phone: { type: GraphQLString },
   }),
 });
 
@@ -23,7 +23,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     client: {
       type: ClientType,
-      arge: { id: { type: GraphQLID } },
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return clients.find((client) => client.id === args.id);
       },
