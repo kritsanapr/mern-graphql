@@ -107,6 +107,7 @@ const mutation = new GraphQLObjectType({
       },
     },
 
+    // Addd Project
     addProject: {
       type: ProjectType,
       args: {
@@ -114,14 +115,14 @@ const mutation = new GraphQLObjectType({
         description: { type: GraphQLNonNull(GraphQLString) },
         status: {
           type: new GraphQLEnumType({
-            name: "ProjectStatus",
+            name: 'ProjectStatus',
             values: {
-              new: { value: "Not Started" },
-              progress: { value: "In Progress" },
-              complete: { value: "Complete" },
+              new: { value: 'Not Started' },
+              progress: { value: 'In Progress' },
+              completed: { value: 'Completed' },
             },
           }),
-          defaultValue: "Not Started",
+          defaultValue: 'Not Started',
         },
         clientId: { type: GraphQLNonNull(GraphQLID) },
       },
@@ -136,7 +137,53 @@ const mutation = new GraphQLObjectType({
         return project.save();
       },
     },
-  },
+
+    // Delete Project
+    deleteProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Project.findByIdAndRemove(args.id);
+      }
+    },
+
+    // Update Project
+    updateProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLNonNull(GraphQLString) },
+        description: { type: GraphQLNonNull(GraphQLString) },
+        status: {
+          type: new GraphQLEnumType({
+            name: 'ProjectStatusUpdate',
+            values: {
+              new: { value: 'Not Started' },
+              progress: { value: 'In Progress' },
+              completed: { value: 'Completed' },
+            },
+          }),
+          defaultValue: 'Not Started',
+        },
+      },
+      resolve(parent, args) {
+        return Project.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              description: args.description,
+              status: args.status,
+            },
+          },
+          { new: true }
+        );
+      }
+    }
+
+  }
 });
 
 module.exports = new GraphQLSchema({
