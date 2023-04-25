@@ -1,11 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
 import ClientRow from "./ClientRow";
+import Spinner from "./Spinner";
 import { GET_CLIENTS } from "../queries/clientQuery";
 
 function Clients() {
   const { loading, error, data } = useQuery(GET_CLIENTS);
 
-  if (loading) return "Loading...";
+  if (loading) return <Spinner />;
   if (error) return `Error! ${error.message}`;
 
   console.log(data);
@@ -13,7 +14,7 @@ function Clients() {
   return (
     <>
       {!loading && !error && (
-        <table className="table table-auto">
+        <table className="table table-auto mt-3">
           <thead>
             <tr>
               <th>Name</th>
