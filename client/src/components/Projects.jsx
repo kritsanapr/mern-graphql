@@ -11,7 +11,7 @@ function Projects() {
   console.log(data);
   return (
     <>
-      <div className="row">
+      <div className="row mt-4">
         {data.projects.length > 0 ? (
           data.projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
