@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import Project from "./pages/Project";
 import Header from "./components/Header";
 import NotFound from "./pages/NotFound";
 import Clients from "./components/Clients";
@@ -40,6 +41,7 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/project/:id" element={<Project />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
