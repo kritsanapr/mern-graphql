@@ -22,4 +22,4 @@ const DELETE_CLIENT = gql`
     }
 `;
 
-export { DELETE_CLIENT }
+export { ADD_CLIENT, DELETE_CLIENT }
